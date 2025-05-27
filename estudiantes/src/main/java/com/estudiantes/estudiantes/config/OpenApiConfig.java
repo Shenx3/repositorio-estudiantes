@@ -11,7 +11,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Estudiantes.")
+                        .title("Estudiantes")
                         .description("Sistema de Estudiantes."));
     }
 }
