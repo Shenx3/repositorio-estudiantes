@@ -1,3 +1,5 @@
+//CursoRepository
+
 package com.estudiantes.estudiantes.repository;
 
 import com.estudiantes.estudiantes.model.Curso;
