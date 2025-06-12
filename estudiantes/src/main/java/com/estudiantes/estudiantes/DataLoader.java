@@ -10,10 +10,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+// Se iniciara solamente con el profile "dev"
+@Profile("dev")
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -59,12 +60,14 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
+    // Creacion de Rut en formato Chileno (XX.XXX.XXX-X)
     private String generarRut(Faker faker) {
         int num = faker.number().numberBetween(1000000, 25000000);
         String dv = calcularDigitoVerificador(num);
         return String.format("%,d-%s", num, dv).replace(",", ".");
     }
 
+    // Calculo del digito verificador
     private String calcularDigitoVerificador(int rut) {
         int m = 0, s = 1;
         for (; rut != 0; rut /= 10) {
