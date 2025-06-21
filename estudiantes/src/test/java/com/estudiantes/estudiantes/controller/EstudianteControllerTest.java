@@ -28,7 +28,7 @@ public class EstudianteControllerTest {
     @MockBean // Crea un mock del servicio de Estudiante
     private EstudianteService estudianteService;
 
-    @MockBean  // ¡Este es el mock que faltaba!
+    @MockBean
     private CursoService cursoService;
 
     @Autowired // Se usa para convertir objetos Java a JSON y viceversa
@@ -59,7 +59,7 @@ public class EstudianteControllerTest {
 
     @Test
     public void testGetAllEstudiantes() throws Exception {
-        // 1. Configura el mock usando el estudiante del setUp (que tiene todos los datos)
+        // Configura el mock usando el estudiante del setUp (que tiene todos los datos)
         when(estudianteService.findAll()).thenReturn(List.of(estudiante));
 
         mockMvc.perform(get("/api/v1/estudiantes"))
