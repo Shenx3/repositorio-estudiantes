@@ -1,5 +1,6 @@
 package com.estudiantes.estudiantes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class Curso {
     private String nombreCurso;
 
     @OneToMany(mappedBy = "curso")
-    @JsonManagedReference
+    @JsonIgnore // Evita la recursión infinita
     private List<Estudiante> estudiantes;
 
 }
