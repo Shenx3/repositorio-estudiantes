@@ -57,7 +57,7 @@ public class EstudianteControllerTest {
         curso.setEstudiantes(List.of(estudiante));
     }
 
-    @Test
+    @Test //
     public void testGetAllEstudiantes() throws Exception {
         // Configura el mock usando el estudiante del setUp (que tiene todos los datos)
         when(estudianteService.findAll()).thenReturn(List.of(estudiante));
