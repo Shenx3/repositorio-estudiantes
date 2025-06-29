@@ -1,10 +1,7 @@
 package com.estudiantes.estudiantes.model;
 
 // Imports
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,8 +32,6 @@ public class Estudiante {
 
     @ManyToOne // Muchos estudiantes pueden estar dentro de un curso
     @JoinColumn(name = "id_curso") // Define la FK
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonProperty("curso") // Asegura que se serialice
-    @JsonManagedReference
+    @JsonIgnoreProperties("estudiantes")
     private Curso curso;
 }
