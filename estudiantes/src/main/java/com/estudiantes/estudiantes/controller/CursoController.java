@@ -56,7 +56,7 @@ public class CursoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCurso(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarCurso(@PathVariable Integer id) {
         try {
             cursoService.delete(id);
             return ResponseEntity.noContent().build();
@@ -66,7 +66,3 @@ public class CursoController {
     }
 
 }
-
-
-
-
