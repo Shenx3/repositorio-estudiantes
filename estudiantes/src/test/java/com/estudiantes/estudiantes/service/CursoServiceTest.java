@@ -51,10 +51,10 @@ public class CursoServiceTest {
     @Test
     void testFindCursoById() {
         // Arrange
-        when(cursoRepository.findById(1L)).thenReturn(Optional.of(curso));
+        when(cursoRepository.findById(1)).thenReturn(Optional.of(curso));
 
         // Act
-        Curso result = cursoService.findById(1L);
+        Curso result = cursoService.findById(1);
 
         // Assert
         assertNotNull(result);
@@ -77,12 +77,12 @@ public class CursoServiceTest {
     @Test
     void testDeleteCurso() {
         // Arrange
-        doNothing().when(cursoRepository).deleteById(1L);
+        doNothing().when(cursoRepository).deleteById(1);
 
         // Act
-        cursoService.delete(1L);
+        cursoService.delete(1);
 
         // Assert
-        verify(cursoRepository, times(1)).deleteById(1L);
+        verify(cursoRepository, times(1)).deleteById(1);
     }
 }
