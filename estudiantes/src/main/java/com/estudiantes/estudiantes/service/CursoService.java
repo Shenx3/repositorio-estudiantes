@@ -18,7 +18,7 @@ public class CursoService {
         return cursoRepository.findAll();
     }
 
-    public Curso findById(long id) {
+    public Curso findById(int id) {
         return cursoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
     }
@@ -27,7 +27,7 @@ public class CursoService {
         return cursoRepository.save(curso);
     }
 
-    public void delete(Long id){
+    public void delete(int id){
         cursoRepository.deleteById(id);
     }
 }
