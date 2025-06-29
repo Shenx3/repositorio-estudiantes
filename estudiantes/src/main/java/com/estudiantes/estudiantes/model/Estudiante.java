@@ -3,6 +3,7 @@ package com.estudiantes.estudiantes.model;
 // Imports
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,6 @@ public class Estudiante {
     @JoinColumn(name = "id_curso") // Define la FK
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("curso") // Asegura que se serialice
+    @JsonManagedReference
     private Curso curso;
 }
