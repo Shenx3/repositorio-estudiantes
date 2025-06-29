@@ -37,7 +37,7 @@ public class EstudianteController {
     }
 
     @GetMapping("/{id}") // Buscar por ID a Estudiantes
-    public ResponseEntity<Estudiante> buscarEstudiante(@PathVariable Integer id) {
+    public ResponseEntity<Estudiante> buscarEstudiante(@PathVariable Long id) {
         try {
             Estudiante estudiante = estudianteService.findById(id);
             return ResponseEntity.ok(estudiante);
@@ -47,7 +47,7 @@ public class EstudianteController {
     }
 
     @PutMapping("/{id}") // Actualizar Estudiantes
-    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable Integer id, @RequestBody Estudiante estudiante) {
+    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable Long id, @RequestBody Estudiante estudiante) {
         try {
             Estudiante estudianteActual = estudianteService.findById(id);
             estudianteActual.setRunEstudiante(estudiante.getRunEstudiante());
@@ -77,8 +77,8 @@ public class EstudianteController {
 
     @PutMapping("/{id}/asignarcurso/{cursoId}") // Asignar Curso a Estudiante
     public ResponseEntity<Estudiante> asignarCursoAEstudiante(
-            @PathVariable Integer id,
-            @PathVariable Integer cursoId) {
+            @PathVariable Long id,
+            @PathVariable Long cursoId) {
 
         try {
             Estudiante estudiante = estudianteService.findById(id);
@@ -95,7 +95,7 @@ public class EstudianteController {
 
     @DeleteMapping("/{idEstudiante}/removercurso") // Remover Curso a Estudiante
     public ResponseEntity<Void> removerEstudianteDeCurso(
-            @PathVariable Integer idEstudiante) {
+            @PathVariable Long idEstudiante) {
         try {
             Estudiante estudiante = estudianteService.findById(idEstudiante);
             estudiante.setCurso(null);
