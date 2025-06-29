@@ -16,10 +16,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)  // Esta anotación es crucial
+@ExtendWith(MockitoExtension.class)
 public class EstudianteServiceTest {
 
-    @Mock  // Crea un mock del repositorio
+    @Mock  // Mock del repositorio
     private EstudianteRepository estudianteRepository;
 
     @InjectMocks  // Inyecta los mocks en el servicio
@@ -30,7 +30,7 @@ public class EstudianteServiceTest {
 
     @BeforeEach
     public void setUp() {
-        // Configuración inicial de datos de prueba
+        // Estudiante 1
         estudiante1 = new Estudiante();
         estudiante1.setIdEstudiante(1);
         estudiante1.setRunEstudiante("18.493.402-2");
@@ -38,6 +38,7 @@ public class EstudianteServiceTest {
         estudiante1.setApellido("Lama");
         estudiante1.setEdad(25);
 
+        // Estudiante 2
         estudiante2 = new Estudiante();
         estudiante2.setIdEstudiante(2);
         estudiante2.setRunEstudiante("19.876.543-1");
@@ -48,14 +49,14 @@ public class EstudianteServiceTest {
 
     @Test
     public void testFindAllEstudiantes() {
-        // 1. Configuración del mock (Arrange)
+        // Arrange
         List<Estudiante> listaMock = Arrays.asList(estudiante1, estudiante2);
         when(estudianteRepository.findAll()).thenReturn(listaMock);
 
-        // 2. Ejecución del método (Act)
+        // Act
         List<Estudiante> resultado = estudianteService.findAll();
 
-        // 3. Verificaciones (Assert)
+        // Assert
         assertNotNull(resultado);
         assertEquals(2, resultado.size());
         assertEquals("Manolo", resultado.get(0).getNombre());
@@ -64,10 +65,10 @@ public class EstudianteServiceTest {
     @Test
     void testFindEstudianteById() {
         // Arrange
-        when(estudianteRepository.findById(1L)).thenReturn(Optional.of(estudiante1));
+        when(estudianteRepository.findById(1)).thenReturn(Optional.of(estudiante1));
 
         // Act
-        Estudiante result = estudianteService.findById(1L);
+        Estudiante result = estudianteService.findById(1);
 
         // Assert
         assertNotNull(result);
@@ -90,13 +91,13 @@ public class EstudianteServiceTest {
     @Test
     void testDeleteEstudiante() {
         // Arrange
-        doNothing().when(estudianteRepository).deleteById(1L);
+        doNothing().when(estudianteRepository).deleteById(1);
 
         // Act
-        estudianteService.delete(1L);
+        estudianteService.delete(1);
 
         // Assert
-        verify(estudianteRepository, times(1)).deleteById(1L);
+        verify(estudianteRepository, times(1)).deleteById(1);
     }
 
 }
