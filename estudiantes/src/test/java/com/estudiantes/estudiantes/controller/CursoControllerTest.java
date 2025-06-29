@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBean; // Ignorar advertencia
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -87,7 +87,7 @@ public class CursoControllerTest {
     @Test
     public void testUpdateCurso() throws Exception {
 
-        when(cursoService.findById(eq(1L))).thenReturn(curso);
+        when(cursoService.findById(eq(1))).thenReturn(curso);
         when(cursoService.save(any(Curso.class))).thenReturn(curso);
 
         mockMvc.perform(put("/api/v1/cursos/1")
@@ -102,12 +102,11 @@ public class CursoControllerTest {
 
     @Test
     public void testDeleteCurso() throws Exception {
-        doNothing().when(cursoService).delete(eq(1L));
+        doNothing().when(cursoService).delete(eq(1));
 
         mockMvc.perform(delete("/api/v1/cursos/1"))
                 .andExpect(status().isNoContent()); // Verifica que el estado sea un 204
 
-        verify(cursoService, times(1)).delete(eq(1L));
+        verify(cursoService, times(1)).delete(eq(1));
     }
-
 }

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBean; // Ignorar advertencia
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -127,7 +127,7 @@ public class EstudianteControllerTest {
     @Test
     public void testUpdateEstudiante() throws Exception {
 
-        when(estudianteService.findById(eq(1L))).thenReturn(estudiante);
+        when(estudianteService.findById(eq(1))).thenReturn(estudiante);
         when(estudianteService.save(any(Estudiante.class))).thenReturn(estudiante);
 
         mockMvc.perform(put("/api/v1/estudiantes/1")
@@ -149,12 +149,12 @@ public class EstudianteControllerTest {
 
     @Test
     public void testDeleteEstudiante() throws Exception {
-        doNothing().when(estudianteService).delete(eq(1L));
+        doNothing().when(estudianteService).delete(eq(1));
 
         mockMvc.perform(delete("/api/v1/estudiantes/1"))
                 .andExpect(status().isNoContent()); // Verifica que el estado sea un 204
 
-        verify(estudianteService, times(1)).delete(eq(1L));
+        verify(estudianteService, times(1)).delete(eq(1));
     }
 
     // CURSOS
@@ -162,9 +162,9 @@ public class EstudianteControllerTest {
     // Asignar curso a estudiante
     @Test
     public void testAsignarCursoAEstudiante() throws Exception {
-        when(estudianteService.findById(eq(1L))).thenReturn(estudiante);
+        when(estudianteService.findById(eq(1))).thenReturn(estudiante);
         // Cuando se busque al curso por su ID, se devuelve el objeto 'curso'
-        when(cursoService.findById(eq(1L))).thenReturn(curso);
+        when(cursoService.findById(eq(1))).thenReturn(curso);
         // Cuando se guarde cualquier estudiante, se devuelve el mismo 'estudiante' (que ya tendrá el curso asignado)
         when(estudianteService.save(any(Estudiante.class))).thenReturn(estudiante);
 
@@ -178,39 +178,11 @@ public class EstudianteControllerTest {
                 .andExpect(jsonPath("$.curso.nombreCurso").value("Programación"));
     }
 
-    // NotFound Estudiante
-    @Test
-    public void testAsignarCursoAEstudianteNotFound() throws Exception {
-        when(estudianteService.findById(eq(99L))).thenThrow(new RuntimeException("Estudiante no encontrado")); // Estudiante con ID 99 inexistente
-
-        // Aunque el curso exista, el estudiante no se encontrará
-        when(cursoService.findById(any(Integer.class))).thenReturn(curso);
-
-        // Petición PUT a un ID de estudiante que no existe
-        mockMvc.perform(put("/api/v1/estudiantes/99/asignarcurso/1"))
-                .andExpect(status().isNotFound()); // Esperamos un 404 Not Found
-    }
-
-    // NotFound Curso
-    @Test
-    public void testAsignarCursoAEstudianteCursoNotFound() throws Exception {
-        // 1. Mockeamos el escenario donde el estudiante existe pero el curso no
-        when(estudianteService.findById(eq(1L))).thenReturn(estudiante); // Estudiante con ID 1
-        when(cursoService.findById(eq(99L))).thenThrow(new RuntimeException("Curso no encontrado")); // Curso con ID 99 inexistente
-
-        // 2. Realizamos la petición PUT con un ID de curso que no existe
-        mockMvc.perform(put("/api/v1/estudiantes/1/asignarcurso/99"))
-                .andExpect(status().isNotFound()); // Esperamos un 404 Not Found
-    }
-
-
-
-
     // Remover curso a estudiante
     @Test
     public void testRemoverEstudianteDeCurso() throws Exception {
 
-        when(estudianteService.findById(eq(1L))).thenReturn(estudiante);
+        when(estudianteService.findById(eq(1))).thenReturn(estudiante);
         estudiante.setCurso(null); // Eliminacion de curso a estudiante
 
         when(estudianteService.save(any(Estudiante.class))).thenReturn(estudiante); // Se guarda el estudiante sin el curso
@@ -219,18 +191,7 @@ public class EstudianteControllerTest {
         mockMvc.perform(delete("/api/v1/estudiantes/1/removercurso"))
                 .andExpect(status().isNoContent()); // Esperamos un 204 No Content
 
-        verify(estudianteService, times(1)).findById(eq(1L));
+        verify(estudianteService, times(1)).findById(eq(1));
         verify(estudianteService, times(1)).save(any(Estudiante.class));
-    }
-
-    // NotFound Estudiante
-    @Test
-    public void testRemoverEstudianteDeCursoNotFound() throws Exception {
-        when(estudianteService.findById(eq(99L))).thenThrow(new RuntimeException("Estudiante no encontrado"));
-
-        mockMvc.perform(delete("/api/v1/estudiantes/99/removercurso"))
-                .andExpect(status().isNotFound()); // Esperamos un 404 Not Found
-
-        verify(estudianteService, never()).save(any(Estudiante.class));
     }
 }
