@@ -37,7 +37,7 @@ public class EstudianteController {
     }
 
     @GetMapping("/{id}") // Buscar por ID a Estudiantes
-    public ResponseEntity<Estudiante> buscarEstudiante(@PathVariable Long id) {
+    public ResponseEntity<Estudiante> buscarEstudiante(@PathVariable Integer id) {
         try {
             Estudiante estudiante = estudianteService.findById(id);
             return ResponseEntity.ok(estudiante);
@@ -47,7 +47,9 @@ public class EstudianteController {
     }
 
     @PutMapping("/{id}") // Actualizar Estudiantes
-    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable Long id, @RequestBody Estudiante estudiante) {
+    public ResponseEntity<Estudiante> actualizarEstudiante(
+            @PathVariable Integer id,
+            @RequestBody Estudiante estudiante) {
         try {
             Estudiante estudianteActual = estudianteService.findById(id);
             estudianteActual.setRunEstudiante(estudiante.getRunEstudiante());
@@ -64,7 +66,7 @@ public class EstudianteController {
     }
 
     @DeleteMapping("/{id}") // Eliminar Estudiantes
-    public ResponseEntity<Void> eliminarEstudiante(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarEstudiante(@PathVariable Integer id) {
         try {
             estudianteService.delete(id);
             return ResponseEntity.noContent().build();
@@ -77,8 +79,8 @@ public class EstudianteController {
 
     @PutMapping("/{id}/asignarcurso/{cursoId}") // Asignar Curso a Estudiante
     public ResponseEntity<Estudiante> asignarCursoAEstudiante(
-            @PathVariable Long id,
-            @PathVariable Long cursoId) {
+            @PathVariable Integer id,
+            @PathVariable Integer cursoId) {
 
         try {
             Estudiante estudiante = estudianteService.findById(id);
@@ -94,8 +96,7 @@ public class EstudianteController {
     }
 
     @DeleteMapping("/{idEstudiante}/removercurso") // Remover Curso a Estudiante
-    public ResponseEntity<Void> removerEstudianteDeCurso(
-            @PathVariable Long idEstudiante) {
+    public ResponseEntity<Void> removerEstudianteDeCurso(@PathVariable Integer idEstudiante) {
         try {
             Estudiante estudiante = estudianteService.findById(idEstudiante);
             estudiante.setCurso(null);

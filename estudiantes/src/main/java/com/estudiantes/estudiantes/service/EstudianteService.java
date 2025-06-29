@@ -18,7 +18,7 @@ public class EstudianteService {
         return estudianteRepository.findAll();
     }
 
-    public Estudiante findById(long id) { // Encontrar estudiante por ID
+    public Estudiante findById(int id) { // Encontrar estudiante por ID
         return estudianteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
     }
@@ -27,7 +27,7 @@ public class EstudianteService {
         return estudianteRepository.save(estudiante);
     }
 
-    public void delete(Long id){ // Eliminar estudiante
+    public void delete(int id){ // Eliminar estudiante
         estudianteRepository.deleteById(id);
     }
 }
