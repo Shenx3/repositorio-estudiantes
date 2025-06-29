@@ -159,6 +159,7 @@ public class EstudianteControllerTest {
 
     // CURSOS
 
+    // Asignar curso a estudiante
     @Test
     public void testAsignarCursoAEstudiante() throws Exception {
         when(estudianteService.findById(eq(1L))).thenReturn(estudiante);
